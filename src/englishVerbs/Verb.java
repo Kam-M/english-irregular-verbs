@@ -40,7 +40,7 @@ public class Verb implements Comparable<Verb>{
 	}
 	@Override
 	public String toString() {
-		return translation + "(inf: " + infinitive + ") : " + pastTense + " " + pastParticiple;
+		return translation + "(inf:" + infinitive + ") -- " + pastTense + " - " + pastParticiple;
 	}
 
 	@Override

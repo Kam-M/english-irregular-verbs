@@ -20,7 +20,7 @@ public class VerbsCollection {
 	}
 
 	public void printVerbsCollection() {
-		verbsCollection.forEach(Verb::toString);
+		verbsCollection.forEach(System.out::println);
 	}
 
 }
