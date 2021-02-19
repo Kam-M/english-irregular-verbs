@@ -12,6 +12,10 @@ public class VerbsCollection {
 		this.verbsCollection = new TreeSet<>();
 	}
 
+	public VerbsCollection(Set<Verb> verbsCollection) {
+		this.verbsCollection = verbsCollection;
+	}
+
 	public void addVerbToCollection(String translation, String infinitive, String pastTense, String pastParticiple) {
 		Verb verb = new Verb(translation, infinitive, pastTense, pastParticiple);
 		if (verbsCollection.add(verb)) {
