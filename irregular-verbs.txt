@@ -10,3 +10,16 @@ kosztować,cost,cost,cost
 skradać się,creep,crept,crept
 piać,crow,crew,crowed
 ciąć,cut,cut,cut
+powstawać,arise,arose,arisen
+obudzić,awake,awoke,awoken
+zajmować się dzieckiem,babysit,babysat,babysat
+być,be,was/were,been
+nosić/znosić/udźwignąć,bear,bore,borne
+bić/pokonać,beat,beat,beaten
+stać się/zostać,become,became,become
+powodować,beget,begot,begotten
+zaczynać,begin,began,begun
+ujrzeć,behold,beheld,beheld
+zginać/naginać,bend,bent,bent
+dręczyć,beset,beset,beset
+zakładać się,bet,bet,bet

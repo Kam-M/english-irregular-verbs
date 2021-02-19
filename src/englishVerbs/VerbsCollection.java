@@ -37,9 +37,11 @@ public class VerbsCollection {
 	}
 	
 	public Verb getRandomVerbByTranslation() {
-		Verb[] arrayOfVerbs = (Verb[]) verbsCollection.toArray();
+		Object[] arrayOfVerbs = verbsCollection.toArray();
 		int rnd = new Random().nextInt(arrayOfVerbs.length);
-	    return arrayOfVerbs[rnd];
+	    return (Verb)arrayOfVerbs[rnd];
 	}
+	
+	
 
 }
