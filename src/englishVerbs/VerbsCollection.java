@@ -1,6 +1,7 @@
 package englishVerbs;
 
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,24 +17,51 @@ public class VerbsCollection {
 		this.verbsCollection = verbsCollection;
 	}
 
-	public void addVerbToCollection(String translation, String infinitive, String pastTense, String pastParticiple) {
-		Verb verb = new Verb(translation, infinitive, pastTense, pastParticiple);
+	private boolean addVerbToCollection(Verb verb) {
 		if (verbsCollection.add(verb)) {
 			System.out.println("Succesfully added: " + verb.toString());
+			return true;
 		} else {
-			System.out.println("This verb is already in the collection (checked by translation).");
+			System.out.println("This verb is already in the collection (checked by infinitive).");
+			return false;
 		}
+	}
+	
+	public boolean addVerb(Scanner scanner) {
+		System.out.println("Type translation for new verb: ");
+		String translation = scanner.nextLine();
+		System.out.println("Type infinitive: ");
+		String infinitive = scanner.nextLine();
+		System.out.println("Type Past Tense form: ");
+		String pastTense = scanner.nextLine();
+		System.out.println("Type Past Participle Form: ");
+		String pastParticiple = scanner.nextLine();
+		
+		return addVerbToCollection(new Verb(translation, infinitive, pastTense, pastParticiple));
+	}
+	
+	public boolean removeVerb(Scanner scanner) {
+		System.out.println("Type infinitive of the verb you want to remove:");
+		String infinitive = scanner.nextLine();
+		boolean wasRemoved = verbsCollection.removeIf( v -> v.getInfinitive().equals(infinitive));
+		if(wasRemoved) {
+			System.out.println("Succesfully removed verb from collection.");
+			return true;
+		}else {
+			System.out.println("Collection does not contain this verb (checked by infinitive).");
+			return false;
+		}
+	}
+	
+	public void printVerbsCollectionByInfinitive() {
+		verbsCollection.forEach( v -> System.out.println(v.toStringByInfinitive()));
 	}
 
 	public void printVerbsCollectionByTranslation() {
-		verbsCollection.forEach(System.out::println);
-	}
-
-	public void printVerbsCollectionByInfinitive() {
-		Set<Verb> verbsCollectionByInfinitive = new TreeSet<>(
-				(v1, v2) -> v1.getInfinitive().compareTo(v2.getInfinitive()));
-		verbsCollectionByInfinitive.addAll(verbsCollection);
-		verbsCollectionByInfinitive.forEach( v -> System.out.println(v.toStringByInfinitive()));
+		Set<Verb> verbsCollectionByTranslation = new TreeSet<>(
+				(v1, v2) -> v1.getTranslation().compareTo(v2.getTranslation()));
+		verbsCollectionByTranslation.addAll(verbsCollection);
+		verbsCollectionByTranslation.forEach( v -> System.out.println(v.toString()));
 	}
 	
 	public Verb[] getArrayOfVerbs(){

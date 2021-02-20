@@ -53,16 +53,23 @@ public class Verb implements Comparable<Verb>{
 
 	@Override
 	public int compareTo(Verb o) {
-		return this.translation.compareTo(o.getTranslation());
+		return this.infinitive.compareTo(o.getInfinitive());
 	}
 	
-	public List<String> verbToList(Verb verb) {
+	public List<String> verbFormsIntoList(Verb verb) {
 		List<String> verbToList = new ArrayList<>();
 		verbToList.add(this.translation);
 		verbToList.add(this.infinitive);
 		verbToList.add(this.pastTense);
 		verbToList.add(this.pastParticiple);
 		return verbToList;
+	}
+	
+	public String verbToOneLineString(Verb verb) {
+		StringBuilder stringBuilder = new StringBuilder();
+		List<String> verbFormsIntoList = verb.verbFormsIntoList(verb);
+		verbFormsIntoList.forEach( s -> stringBuilder.append(s + ","));
+		return stringBuilder.toString();
 	}
 	
 }

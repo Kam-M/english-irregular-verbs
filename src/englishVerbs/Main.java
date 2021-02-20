@@ -1,8 +1,10 @@
 package englishVerbs;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Main {
 	private static Quiz quiz;
 	private static File file;
 	private static Scanner scanner;
+	private static boolean wasOverwrite;
 
 	public static void main(String[] args) {
 
@@ -31,20 +34,20 @@ public class Main {
 
 		while (true) {
 			System.out.println("****************************************************************\n"
-					+ "Please enter key:\n1. Print all verbs sorted alphabetically by translation.\n"
-					+ "2. Print all verbs sorted alphabetically by infinitive\n"
-					+ "3. Print a random verb to learn.\n"
-					+ "4. Print five random verbs to learn sorted by translation.\n"
-					+ "5. Start a QUIZ (you will have to enter the correct form of a randomly given verb.\n"
-					+ "6. Quit app.");
+					+ "Please enter key:\n1. Print all verbs sorted alphabetically by infinitive.\n"
+					+ "2. Print all verbs sorted alphabetically by translation.\n"
+					+ "3. Print a random verb to learn.\n" + "4. Print five random verbs to learn.\n"
+					+ "5. QUIZ (enter the correct form of the randomly given verb).\n"
+					+ "6. Add a new verb to the collection.\n" + "7. Remove particular verb from the collection.\n"
+					+ "8. Quit app.");
 
 			String userInput = scanner.nextLine();
 
 			if (userInput.equals("1")) {
-				verbsCollection.printVerbsCollectionByTranslation();
+				verbsCollection.printVerbsCollectionByInfinitive();
 				continue;
 			} else if (userInput.equals("2")) {
-				verbsCollection.printVerbsCollectionByInfinitive();
+				verbsCollection.printVerbsCollectionByTranslation();
 				continue;
 			} else if (userInput.equals("3")) {
 				quiz.printOneRandomVerbToLearn();
@@ -52,10 +55,19 @@ public class Main {
 			} else if (userInput.equals("4")) {
 				quiz.printFiveRandomVerbsToLearn();
 				continue;
-			} else if(userInput.equals("5")){
-				quiz.quizOneVerbByTranslation(scanner);
+			} else if (userInput.equals("5")) {
+				quiz.quizRandomFormOfVerb(scanner);
 				continue;
-			}else if (userInput.equals("6")) {
+			} else if (userInput.equals("6")) {
+				wasOverwrite = verbsCollection.addVerb(scanner);
+				continue;
+			} else if (userInput.equals("7")) {
+				wasOverwrite = verbsCollection.removeVerb(scanner);
+				continue;
+			} else if (userInput.equals("8")) {
+				if (wasOverwrite) {
+					main.changeFile(file, verbsCollection);
+				}
 				System.out.println("Thank you for learning! Bye!");
 				break;
 			} else {
@@ -67,18 +79,18 @@ public class Main {
 	private List<String[]> getVerbEntriesFromFile(File file) throws IOException {
 		List<String[]> linesOfVerbs = new ArrayList<>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			String line = br.readLine();
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			String line = reader.readLine();
 			while (line != null) {
 				String[] splitLines = line.split(",");
 				linesOfVerbs.add(splitLines);
-				line = br.readLine();
+				line = reader.readLine();
 			}
 		}
 		return linesOfVerbs;
 	}
 
-	public Set<Verb> getVerbsFromExternalSource(File file) {
+	private Set<Verb> getVerbsFromExternalSource(File file) {
 		Set<Verb> verbsCollection = new TreeSet<>();
 
 		try {
@@ -93,4 +105,16 @@ public class Main {
 		return verbsCollection;
 	}
 
+	private void changeFile(File file, VerbsCollection verbsCollection) {
+
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+			for (var verb : verbsCollection.getArrayOfVerbs()) {
+				String verbToOneString = verb.verbToOneLineString(verb);
+				writer.write(verbToOneString);
+				writer.write("\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

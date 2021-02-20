@@ -31,38 +31,45 @@ public class Quiz {
 		randomGeneratedVerbs.forEach(System.out::println);
 	}
 
-	public void quizOneVerbByTranslation(Scanner scanner) {
+	public void quizRandomFormOfVerb(Scanner scanner) {
 		Verb verb = verbsCollection.getRandomVerb(verbsCollection.getArrayOfVerbs());
-		List<String> verbFormsIntoList = new ArrayList<>(verb.verbToList(verb));
+		List<String> verbFormsIntoList = new ArrayList<>(verb.verbFormsIntoList(verb));
 
 		String translation = verbFormsIntoList.remove(0);
-		System.out.print(
-				"\t&&&&&&&&&&&&& QUIZ &&&&&&&&&&&&&\n\tRandomly generated verb(translation) is: -- " + translation + " -- \n\t" + "Please type the correct ");
+		System.out.print("\t&&&&&&&&&&&&& QUIZ &&&&&&&&&&&&&\n\tRandomly generated verb(translation) is: -- "
+				+ translation + " -- \n\t" + "Please type the correct ");
 
 		int randomIndex = new Random().nextInt(verbFormsIntoList.size());
-		String randomForm = verbFormsIntoList.get(randomIndex);
+		String[] randomForm = verbFormsIntoList.get(randomIndex).split("/");
 
 		switch (randomIndex) {
 		case 0:
 			System.out.println("infinitive form of the verb:");
 			break;
 		case 1:
-			System.out.println("Past Tense(2nd) form of the verb:");
+			System.out.println("Past Tense(2nd) form(one of the correct forms) of the verb:");
 			break;
 		case 2:
-			System.out.println("Past Participle(3rd) form of the verb:");
+			System.out.println("Past Participle(3rd) form(one of the correct forms) of the verb:");
 			break;
 		}
 
 		String input = scanner.nextLine();
 
-		if (input.equals(randomForm)) {
+		if (isCorrectAnswer(input, randomForm)) {
 			System.out.println("\t***Correct!*** Your score is " + ++score + " in " + ++quizCount + " attempts.");
 		} else {
-			System.out.println("\t...Incorrect... The correct form of -- " + translation + " -- is: " + randomForm + ".\n\t"
-					+ "Your score is " + score + " in " + ++quizCount + " attempts.");
+			System.out.println("\t...Incorrect... \n\t" + "Hint: " + verb + "\n\t" + "Your score is " + score + " in "
+					+ ++quizCount + " attempts.");
 		}
+	}
 
+	private boolean isCorrectAnswer(String input, String[] randomForm) {
+		for (var f : randomForm) {
+			if (f.equals(input))
+				return true;
+		}
+		return false;
 	}
 
 }

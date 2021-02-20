@@ -1,42 +1,42 @@
-móc,can,could,(been able)
-rzucać/obsadzić(w filmie),cast,cast,cast
-łapać,catch,caught,caught
-besztać,chide,chid,chidden
-wybierać,choose,chose,chosen
-łupać,cleave,cleaved/cleft/clove,cleaved/cleft
-przywierać,cling,clung,clung
-przychodzić,come,came,come
-kosztować,cost,cost,cost
-skradać się,creep,crept,crept
-piać,crow,crew,crowed
-ciąć,cut,cut,cut
-powstawać,arise,arose,arisen
-obudzić,awake,awoke,awoken
-zajmować się dzieckiem,babysit,babysat,babysat
-być,be,was/were,been
-nosić/znosić/udźwignąć,bear,bore,borne
-bić/pokonać,beat,beat,beaten
-stać się/zostać,become,became,become
-powodować,beget,begot,begotten
-zaczynać,begin,began,begun
-ujrzeć,behold,beheld,beheld
-zginać/naginać,bend,bent,bent
-dręczyć,beset,beset,beset
-zakładać się,bet,bet,bet
-zamarzać,freeze,froze,frozen
-skoczyć,leap,leapt,leapt
-uczyć się,learn,learnt,learnt
-źle usłyszeć,mishear,misheard,misheard
-wyrastać/przerastać,outgrow,outgrew,outgrown
-pokrywać coś/nakładać,overlay,overlaid,overlaid
-dzwonić,ring,rang,rung
-pokazywać,show,showed,shown
-rozlać/wylać,spill,spilt,spilt
-wytrzymać/znosić ból,withstand,withstood,withstood
-myśleć,think,thought,thought
-stać,stand,stood,stood
-martwić/zachwiać/przewrócić,upset,upset,upset
-podnajmować,sublet,sublet,sublet
-przechodzić(np.szkolenie/poddać się czemuś,undergo,underwent,undergone
-podejmować się czegoś,undertake,undertook,undertaken
-brać,take,took,taken
+powstawać,arise,arose,arisen,
+obudzić,awake,awoke,awoken,
+zajmować się dzieckiem,babysit,babysat,babysat,
+być,be,was/were,been,
+nosić/znosić/udźwignąć,bear,bore,borne,
+bić/pokonać,beat,beat,beaten,
+stać się/zostać,become,became,become,
+powodować,beget,begot,begotten,
+zaczynać,begin,began,begun,
+ujrzeć,behold,beheld,beheld,
+zginać/naginać,bend,bent,bent,
+dręczyć,beset,beset,beset,
+zakładać się,bet,bet,bet,
+móc,can,could,(been able),
+rzucać/obsadzić(w filmie),cast,cast,cast,
+łapać,catch,caught,caught,
+besztać,chide,chid,chidden,
+wybierać,choose,chose,chosen,
+łupać,cleave,cleaved/cleft/clove,cleaved/cleft,
+przywierać,cling,clung,clung,
+przychodzić,come,came,come,
+kosztować,cost,cost,cost,
+skradać się,creep,crept,crept,
+piać,crow,crew,crowed,
+ciąć,cut,cut,cut,
+zamarzać,freeze,froze,frozen,
+skoczyć,leap,leapt,leapt,
+uczyć się,learn,learnt,learnt,
+źle usłyszeć,mishear,misheard,misheard,
+wyrastać/przerastać,outgrow,outgrew,outgrown,
+pokrywać coś/nakładać,overlay,overlaid,overlaid,
+dzwonić,ring,rang,rung,
+pokazywać,show,showed,shown,
+rozlać/wylać,spill,spilt,spilt,
+stać,stand,stood,stood,
+podnajmować,sublet,sublet,sublet,
+brać,take,took,taken,
+myśleć,think,thought,thought,
+przechodzić(np.szkolenie/poddać się czemuś,undergo,underwent,undergone,
+podejmować się czegoś,undertake,undertook,undertaken,
+martwić/zachwiać/przewrócić,upset,upset,upset,
+wytrzymać/znosić ból,withstand,withstood,withstood,
