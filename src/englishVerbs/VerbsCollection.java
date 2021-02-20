@@ -36,7 +36,7 @@ public class VerbsCollection {
 		verbsCollectionByInfinitive.forEach( v -> System.out.println(v.toStringByInfinitive()));
 	}
 	
-	public Verb getRandomVerbByTranslation() {
+	public Verb getRandomVerb() {
 		Object[] arrayOfVerbs = verbsCollection.toArray();
 		int rnd = new Random().nextInt(arrayOfVerbs.length);
 	    return (Verb)arrayOfVerbs[rnd];

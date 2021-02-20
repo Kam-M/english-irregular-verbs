@@ -38,6 +38,7 @@ public class Verb implements Comparable<Verb>{
 	public void setPastParticiple(String pastParticiple) {
 		this.pastParticiple = pastParticiple;
 	}
+	
 	@Override
 	public String toString() {
 		return translation + " || " + infinitive + " -- " + pastTense + " -- " + pastParticiple;

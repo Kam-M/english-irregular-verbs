@@ -1,5 +1,5 @@
 móc,can,could,(been able)
-odlewać/rzucać,cast,cast,cast
+rzucać/obsadzić(w filmie),cast,cast,cast
 łapać,catch,caught,caught
 besztać,chide,chid,chidden
 wybierać,choose,chose,chosen
@@ -23,3 +23,20 @@ ujrzeć,behold,beheld,beheld
 zginać/naginać,bend,bent,bent
 dręczyć,beset,beset,beset
 zakładać się,bet,bet,bet
+zamarzać,freeze,froze,frozen
+skoczyć,leap,leapt,leapt
+uczyć się,learn,learnt,learnt
+źle usłyszeć,mishear,misheard,misheard
+wyrastać/przerastać,outgrow,outgrew,outgrown
+pokrywać coś/nakładać,overlay,overlaid,overlaid
+dzwonić,ring,rang,rung
+pokazywać,show,showed,shown
+rozlać/wylać,spill,spilt,spilt
+wytrzymać/znosić ból,withstand,withstood,withstood
+myśleć,think,thought,thought
+stać,stand,stood,stood
+martwić/zachwiać/przewrócić,upset,upset,upset
+podnajmować,sublet,sublet,sublet
+przechodzić(np.szkolenie/poddać się czemuś,undergo,underwent,undergone
+podejmować się czegoś,undertake,undertook,undertaken
+brać,take,took,taken
