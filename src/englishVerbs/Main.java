@@ -11,51 +11,54 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Main {
-	
+
 	private static VerbsCollection verbsCollection;
 	private static Quiz quiz;
 	private static File file;
 	private static Scanner scanner;
 
 	public static void main(String[] args) {
-		
+
 		Main main = new Main();
 		file = new File("./irregular-verbs.txt");
 		verbsCollection = new VerbsCollection(main.getVerbsFromExternalSource(file));
 		quiz = new Quiz(verbsCollection);
 
-		boolean isLearning = true;
 		scanner = new Scanner(System.in);
-		
-		System.out.println("Welcome to ENG-IRR-VER app!\n");
-		
-		while(isLearning) {
+
+		System.out.println("Welcome to ENGLISH-IRREGULAR-VERBS APP!\n"
+				+ "This is not a complete list of all irregular english verbs.\nBut it is constantly being expanded...");
+
+		while (true) {
 			System.out.println("****************************************************************\n"
 					+ "Please enter key:\n1. Print all verbs sorted alphabetically by translation.\n"
 					+ "2. Print all verbs sorted alphabetically by infinitive\n"
-					+ "3. Print five random verbs to learn sorted by translation.\n"
-					+ "4. Start a QUIZ (you will have to enter the correct form of a randomly given verb.\n"
-					+ "5. Quit app.");
-			
+					+ "3. Print a random verb to learn.\n"
+					+ "4. Print five random verbs to learn sorted by translation.\n"
+					+ "5. Start a QUIZ (you will have to enter the correct form of a randomly given verb.\n"
+					+ "6. Quit app.");
+
 			String userInput = scanner.nextLine();
-			
-			if(userInput.equals("1")) {
+
+			if (userInput.equals("1")) {
 				verbsCollection.printVerbsCollectionByTranslation();
 				continue;
-			}else if(userInput.equals("2")) {
-				System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
+			} else if (userInput.equals("2")) {
 				verbsCollection.printVerbsCollectionByInfinitive();
 				continue;
-			}else if(userInput.equals("3")) {
+			} else if (userInput.equals("3")) {
+				quiz.printOneRandomVerbToLearn();
+				continue;
+			} else if (userInput.equals("4")) {
 				quiz.printFiveRandomVerbsToLearn();
 				continue;
-			}else if(userInput.equals("4")) {
+			} else if(userInput.equals("5")){
+				quiz.quizOneVerbByTranslation(scanner);
 				continue;
-			}else if(userInput.equals("5")) {
+			}else if (userInput.equals("6")) {
 				System.out.println("Thank you for learning! Bye!");
-				isLearning = false;
 				break;
-			}else {
+			} else {
 				System.out.println("Invalid command...");
 			}
 		}
@@ -77,7 +80,7 @@ public class Main {
 
 	public Set<Verb> getVerbsFromExternalSource(File file) {
 		Set<Verb> verbsCollection = new TreeSet<>();
-		
+
 		try {
 			List<String[]> arraysWithVerbs = getVerbEntriesFromFile(file);
 			for (var verbPart : arraysWithVerbs) {

@@ -1,5 +1,8 @@
 package englishVerbs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Verb implements Comparable<Verb>{
 
 	private String translation;
@@ -53,5 +56,13 @@ public class Verb implements Comparable<Verb>{
 		return this.translation.compareTo(o.getTranslation());
 	}
 	
+	public List<String> verbToList(Verb verb) {
+		List<String> verbToList = new ArrayList<>();
+		verbToList.add(this.translation);
+		verbToList.add(this.infinitive);
+		verbToList.add(this.pastTense);
+		verbToList.add(this.pastParticiple);
+		return verbToList;
+	}
 	
 }
