@@ -18,15 +18,15 @@ public class Main {
 	private static Quiz quiz;
 	private static File file;
 	private static Scanner scanner;
-	private static boolean wasOverwrite;
-
+	private static boolean isUpdatedCollection;
+	
 	public static void main(String[] args) {
-
+		
 		Main main = new Main();
-		file = new File("./irregular-verbs.txt");
+	
+		file = new File(new File("").getAbsolutePath() + File.separator + "irregular-verbs.txt");
 		verbsCollection = new VerbsCollection(main.getVerbsFromExternalSource(file));
 		quiz = new Quiz(verbsCollection);
-
 		scanner = new Scanner(System.in);
 
 		System.out.println("Welcome to ENGLISH-IRREGULAR-VERBS APP!\n"
@@ -44,10 +44,10 @@ public class Main {
 			String userInput = scanner.nextLine();
 
 			if (userInput.equals("1")) {
-				verbsCollection.printVerbsCollectionByInfinitive();
+				verbsCollection.printVerbsByInfinitive();
 				continue;
 			} else if (userInput.equals("2")) {
-				verbsCollection.printVerbsCollectionByTranslation();
+				verbsCollection.printVerbsByTranslation();
 				continue;
 			} else if (userInput.equals("3")) {
 				quiz.printOneRandomVerbToLearn();
@@ -56,17 +56,17 @@ public class Main {
 				quiz.printFiveRandomVerbsToLearn();
 				continue;
 			} else if (userInput.equals("5")) {
-				quiz.quizRandomFormOfVerb(scanner);
+				quiz.typeCorrectFormOfVerb(scanner);
 				continue;
 			} else if (userInput.equals("6")) {
-				wasOverwrite = verbsCollection.addVerb(scanner);
+				isUpdatedCollection = verbsCollection.addVerb(scanner);
 				continue;
 			} else if (userInput.equals("7")) {
-				wasOverwrite = verbsCollection.removeVerb(scanner);
+				isUpdatedCollection = verbsCollection.removeVerb(scanner);
 				continue;
 			} else if (userInput.equals("8")) {
-				if (wasOverwrite) {
-					main.changeFile(file, verbsCollection);
+				if (isUpdatedCollection) {
+					main.updateSourceFile(file, verbsCollection);
 				}
 				System.out.println("Thank you for learning! Bye!");
 				break;
@@ -100,18 +100,16 @@ public class Main {
 				verbsCollection.add(verb);
 			}
 		} catch (IOException e) {
-			System.out.println("File not found");
+			System.out.println(e.getMessage());
 		}
 		return verbsCollection;
 	}
 
-	private void changeFile(File file, VerbsCollection verbsCollection) {
-
+	private void updateSourceFile(File file, VerbsCollection verbsCollection) {		
+		Set<Verb> verbsSortedByTranslation = verbsCollection.getVerbsSortedByTranslation();
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-			for (var verb : verbsCollection.getArrayOfVerbs()) {
-				String verbToOneString = verb.verbToOneLineString(verb);
-				writer.write(verbToOneString);
-				writer.write("\n");
+			for (var verb : verbsSortedByTranslation) {
+				writer.write(verb.verbToOneSqueezedString() + "\n");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

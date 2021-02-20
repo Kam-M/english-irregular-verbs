@@ -10,7 +10,7 @@ import java.util.Set;
 public class Quiz {
 
 	private VerbsCollection verbsCollection;
-	private int quizCount;
+	private int attemptCount;
 	private int score;
 
 	public Quiz(VerbsCollection verbsCollection) {
@@ -23,25 +23,24 @@ public class Quiz {
 	}
 
 	public void printFiveRandomVerbsToLearn() {
-		Set<Verb> randomGeneratedVerbs = new HashSet<>();
 		Verb[] arrayOfVerbs = verbsCollection.getArrayOfVerbs();
-		for (; randomGeneratedVerbs.size() <= 4;) {
-			randomGeneratedVerbs.add(verbsCollection.getRandomVerb(arrayOfVerbs));
+		Set<Verb> randomGeneratedVerbsToLearn = new HashSet<>();
+		for (; randomGeneratedVerbsToLearn.size() <= 4;) {
+			randomGeneratedVerbsToLearn.add(verbsCollection.getRandomVerb(arrayOfVerbs));
 		}
-		randomGeneratedVerbs.forEach(System.out::println);
+		randomGeneratedVerbsToLearn.forEach(System.out::println);
 	}
 
-	public void quizRandomFormOfVerb(Scanner scanner) {
-		Verb verb = verbsCollection.getRandomVerb(verbsCollection.getArrayOfVerbs());
-		List<String> verbFormsIntoList = new ArrayList<>(verb.verbFormsIntoList(verb));
+	public void typeCorrectFormOfVerb(Scanner scanner) {
+		Verb randomVerb = verbsCollection.getRandomVerb(verbsCollection.getArrayOfVerbs());
+		List<String> verbFormsList = new ArrayList<>(randomVerb.verbFormsIntoList());
+		String translation = verbFormsList.remove(0);
 
-		String translation = verbFormsIntoList.remove(0);
 		System.out.print("\t&&&&&&&&&&&&& QUIZ &&&&&&&&&&&&&\n\tRandomly generated verb(translation) is: -- "
 				+ translation + " -- \n\t" + "Please type the correct ");
 
-		int randomIndex = new Random().nextInt(verbFormsIntoList.size());
-		String[] randomForm = verbFormsIntoList.get(randomIndex).split("/");
-
+		int randomIndex = new Random().nextInt(verbFormsList.size());
+		String[] randomFormOfVerb = verbFormsList.get(randomIndex).split("/");
 		switch (randomIndex) {
 		case 0:
 			System.out.println("infinitive form of the verb:");
@@ -55,12 +54,11 @@ public class Quiz {
 		}
 
 		String input = scanner.nextLine();
-
-		if (isCorrectAnswer(input, randomForm)) {
-			System.out.println("\t***Correct!*** Your score is " + ++score + " in " + ++quizCount + " attempts.");
+		if (isCorrectAnswer(input, randomFormOfVerb)) {
+			System.out.println("\t***Correct!*** Your score is " + ++score + " in " + ++attemptCount + " attempts.");
 		} else {
-			System.out.println("\t...Incorrect... \n\t" + "Hint: " + verb + "\n\t" + "Your score is " + score + " in "
-					+ ++quizCount + " attempts.");
+			System.out.println("\t...Incorrect... \n\t" + "Hint: " + randomVerb + "\n\t" + "Your score is " + score
+					+ " in " + ++attemptCount + " attempts.");
 		}
 	}
 
@@ -71,5 +69,4 @@ public class Quiz {
 		}
 		return false;
 	}
-
 }
