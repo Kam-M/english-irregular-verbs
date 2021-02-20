@@ -1,31 +1,31 @@
 package englishVerbs;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
 	private static VerbsCollection verbsCollection;
 	private static Quiz quiz;
-	private static File file;
+	private static String filePath;
 	private static Scanner scanner;
 	private static boolean isUpdatedCollection;
-	
-	public static void main(String[] args) {
-		
+
+	public static void main(String[] args) throws IOException {
+
 		Main main = new Main();
-	
-		file = new File(new File("").getAbsolutePath() + File.separator + "irregular-verbs.txt");
-		verbsCollection = new VerbsCollection(main.getVerbsFromExternalSource(file));
+
+		filePath = new File("").getAbsolutePath() + File.separator + "irregular-verbs.txt";
+		verbsCollection = new VerbsCollection(main.getVerbsFromFile(filePath));
 		quiz = new Quiz(verbsCollection);
 		scanner = new Scanner(System.in);
 
@@ -66,7 +66,7 @@ public class Main {
 				continue;
 			} else if (userInput.equals("8")) {
 				if (isUpdatedCollection) {
-					main.updateSourceFile(file, verbsCollection);
+					main.updateSourceFile(filePath, verbsCollection);
 				}
 				System.out.println("Thank you for learning! Bye!");
 				break;
@@ -76,38 +76,25 @@ public class Main {
 		}
 	}
 
-	private List<String[]> getVerbEntriesFromFile(File file) throws IOException {
-		List<String[]> linesOfVerbs = new ArrayList<>();
-
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-			String line = reader.readLine();
-			while (line != null) {
-				String[] splitLines = line.split(",");
-				linesOfVerbs.add(splitLines);
-				line = reader.readLine();
-			}
-		}
-		return linesOfVerbs;
-	}
-
-	private Set<Verb> getVerbsFromExternalSource(File file) {
-		Set<Verb> verbsCollection = new TreeSet<>();
-
+	private Set<Verb> getVerbsFromFile(String filePath) {
+		Stream<String> streamOfVerbs;
+		Set<Verb> verbs = null;
 		try {
-			List<String[]> arraysWithVerbs = getVerbEntriesFromFile(file);
-			for (var verbPart : arraysWithVerbs) {
-				Verb verb = new Verb(verbPart[0], verbPart[1], verbPart[2], verbPart[3]);
-				verbsCollection.add(verb);
-			}
+			streamOfVerbs = Files.lines(Paths.get(filePath));
+			verbs = streamOfVerbs
+					.map(stream -> stream.strip())
+					.map(s -> s.split(","))
+					.map(array -> new Verb(array[0], array[1], array[2], array[3]))
+					.collect(Collectors.toCollection(TreeSet::new));
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
-		return verbsCollection;
+		return verbs;
 	}
 
-	private void updateSourceFile(File file, VerbsCollection verbsCollection) {		
+	private void updateSourceFile(String filePath, VerbsCollection verbsCollection) {
 		Set<Verb> verbsSortedByTranslation = verbsCollection.getVerbsSortedByTranslation();
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
 			for (var verb : verbsSortedByTranslation) {
 				writer.write(verb.verbToOneSqueezedString() + "\n");
 			}
