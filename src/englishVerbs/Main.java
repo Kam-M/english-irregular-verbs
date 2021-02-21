@@ -2,8 +2,12 @@ package englishVerbs;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -28,21 +32,20 @@ public class Main {
 				+ "Loading verbs from file...");
 
 		filePath = new File("").getAbsolutePath() + File.separator + "irregular-verbs.txt";
-		
+
 		try {
 			verbsCollection = new VerbsCollection(main.getVerbsFromFile(filePath));
 		} catch (IOException e) {
-			System.err.println("Cannot load file properly -> check file \"." + File.separator + "irregular-verbs.txt\"\n"
-					+ "Shutting down...");
+			System.err.println("Cannot load file properly -> check file \"." + File.separator
+					+ "irregular-verbs.txt\"\n" + "Shutting down...");
 			System.exit(0);
 		}
-		
+
 		quiz = new Quiz(verbsCollection);
 		scanner = new Scanner(System.in);
 
 		while (true) {
-			System.out.println("****************************************************************\n"
-					+ "\t\t\t\t MENU\n"
+			System.out.println("****************************************************************\n" + "\t\t\t\t MENU\n"
 					+ "Please enter key:\n1. Print all verbs sorted alphabetically by infinitive.\n"
 					+ "2. Print all verbs sorted alphabetically by translation.\n"
 					+ "3. Print a random verb to learn.\n" + "4. Print five random verbs to learn.\n"
@@ -61,46 +64,60 @@ public class Main {
 			} else if (userInput.equals("3")) {
 				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
 				quiz.printOneRandomVerbToLearn();
-				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+				System.out
+						.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" + "Press ENTER to return to MENU.");
+				scanner.nextLine();
 				continue;
 			} else if (userInput.equals("4")) {
 				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
 				quiz.printFiveRandomVerbsToLearn();
-				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+				System.out
+						.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" + "Press ENTER to return to MENU.");
+				scanner.nextLine();
 				continue;
 			} else if (userInput.equals("5")) {
 				quiz.typeCorrectFormOfVerb(scanner);
+				System.out
+						.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" + "Press ENTER to return to MENU.");
+				scanner.nextLine();
 				continue;
 			} else if (userInput.equals("6")) {
 				isUpdatedCollection = verbsCollection.addVerb(scanner);
+				System.out
+						.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" + "Press ENTER to return to MENU.");
+				scanner.nextLine();
 				continue;
 			} else if (userInput.equals("7")) {
 				isUpdatedCollection = verbsCollection.removeVerb(scanner);
+				System.out
+						.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" + "Press ENTER to return to MENU.");
+				scanner.nextLine();
 				continue;
 			} else if (userInput.equals("8")) {
 				if (isUpdatedCollection) {
 					main.updateSourceFileWithSortedVerbs(filePath, verbsCollection);
 				}
-				System.out.println("Thank you for learning! Bye!");
+				System.out.println("\t\t\tThank you for learning! Bye!");
 				break;
 			} else {
-				System.out.println("Invalid command...");
+				System.out.println("Invalid command... Type a number and press ENTER");
 			}
 		}
 	}
 
-	private Set<Verb> getVerbsFromFile(String filePath) throws IOException{
-		return Files.lines(Paths.get(filePath))
-				.map(streamOfStrings -> streamOfStrings.strip())
+	private Set<Verb> getVerbsFromFile(String filePath) throws IOException {
+		return Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)
+				.map(streamString -> streamString.strip())
 				.map(oneLineString -> oneLineString.split(","))
 				.map(arrayWithVerb -> new Verb(arrayWithVerb[0], arrayWithVerb[1], arrayWithVerb[2], arrayWithVerb[3]))
 				.collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	private void updateSourceFileWithSortedVerbs(String filePath, VerbsCollection verbsCollection) {
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
+		try (Writer output = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(filePath), Charset.forName("UTF8")))) {
 			for (var verb : verbsCollection.getVerbsSortedByTranslation()) {
-				writer.write(verb.verbToOneSqueezedString() + "\n");
+				output.write(verb.verbToOneSqueezedString() + System.lineSeparator());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -58,7 +58,7 @@ public class VerbsCollection {
 			formsOfVerb.add(inputForNewVerb);
 		}
 
-	return addVerbToCollection(
+		return addVerbToCollection(
 				new Verb(formsOfVerb.get(0), formsOfVerb.get(1), formsOfVerb.get(2), formsOfVerb.get(3)));
 	}
 

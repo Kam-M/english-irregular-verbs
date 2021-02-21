@@ -36,8 +36,9 @@ public class Quiz {
 		List<String> verbFormsList = new ArrayList<>(randomVerb.verbFormsIntoList());
 		String translation = verbFormsList.remove(0);
 
-		System.out.print("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ QUIZ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRandomly generated verb(translation) is: -- "
-				+ translation + " -- \n" + "Please type the correct ");
+		System.out.print(
+				"\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ QUIZ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRandomly generated verb(translation) is: -- "
+						+ translation + " -- \n" + "Please type the correct ");
 
 		int randomIndex = new Random().nextInt(verbFormsList.size());
 		String[] randomFormOfVerb = verbFormsList.get(randomIndex).split("/");
