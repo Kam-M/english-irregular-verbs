@@ -36,8 +36,8 @@ public class Quiz {
 		List<String> verbFormsList = new ArrayList<>(randomVerb.verbFormsIntoList());
 		String translation = verbFormsList.remove(0);
 
-		System.out.print("\t&&&&&&&&&&&&& QUIZ &&&&&&&&&&&&&\n\tRandomly generated verb(translation) is: -- "
-				+ translation + " -- \n\t" + "Please type the correct ");
+		System.out.print("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ QUIZ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRandomly generated verb(translation) is: -- "
+				+ translation + " -- \n" + "Please type the correct ");
 
 		int randomIndex = new Random().nextInt(verbFormsList.size());
 		String[] randomFormOfVerb = verbFormsList.get(randomIndex).split("/");
@@ -55,9 +55,9 @@ public class Quiz {
 
 		String input = scanner.nextLine();
 		if (isCorrectAnswer(input, randomFormOfVerb)) {
-			System.out.println("\t***Correct!*** Your score is " + ++score + " in " + ++attemptCount + " attempts.");
+			System.out.println("\n***Correct!*** Your score is " + ++score + " in " + ++attemptCount + " attempts.");
 		} else {
-			System.out.println("\t...Incorrect... \n\t" + "Hint: " + randomVerb + "\n\t" + "Your score is " + score
+			System.out.println("\n...Incorrect... \n" + "Hint: " + randomVerb + "\n" + "Your score is " + score
 					+ " in " + ++attemptCount + " attempts.");
 		}
 	}

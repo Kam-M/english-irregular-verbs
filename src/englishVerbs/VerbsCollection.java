@@ -1,7 +1,9 @@
 package englishVerbs;
 
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,11 +13,11 @@ import java.util.TreeSet;
 public class VerbsCollection {
 
 	private Set<Verb> verbsCollection;
-	
+
 	public VerbsCollection() {
 		this.verbsCollection = new TreeSet<>();
 	}
-	
+
 	public VerbsCollection(Set<Verb> verbsCollection) {
 		this.verbsCollection = verbsCollection;
 	}
@@ -39,18 +41,31 @@ public class VerbsCollection {
 	}
 
 	public boolean addVerb(Scanner scanner) {
-		System.out.println("Type translation for a new verb separating possible diffferent meanings by a forward slash sign \"/\" : ");
-		String translation = scanner.nextLine();
-		System.out.println("Type infinitive: ");
-		String infinitive = scanner.nextLine();
-		System.out.println("Type Past Tense form: ");
-		String pastTense = scanner.nextLine();
-		System.out.println("Type Past Participle Form: ");
-		String pastParticiple = scanner.nextLine();
+		List<String> formsOfVerb = new ArrayList<>();
 
-		return addVerbToCollection(new Verb(translation, infinitive, pastTense, pastParticiple));
+		String[] descriptionOfParticularForm = { "translation", "infinitive form", "Past Tense(2nd) form",
+				"Past Participle(3rd) form" };
+
+		for (int i = 0; i <= descriptionOfParticularForm.length - 1; i++) {
+			System.out.println("Type " + descriptionOfParticularForm[i] + " for a new verb "
+					+ "separating possible diffferent meanings by a forward slash sign \"/\" : ");
+			String inputForNewVerb = scanner.nextLine().toLowerCase();
+			if (!isInputForNewVerbValid(inputForNewVerb)) {
+				System.out.println("Wrong input.");
+				i--;
+				continue;
+			}
+			formsOfVerb.add(inputForNewVerb);
+		}
+
+	return addVerbToCollection(
+				new Verb(formsOfVerb.get(0), formsOfVerb.get(1), formsOfVerb.get(2), formsOfVerb.get(3)));
 	}
-	
+
+	private boolean isInputForNewVerbValid(String input) {
+		return input.matches("[\\p{L}/]+") && input.length() > 1;
+	}
+
 	private boolean removeVerbFromCollection(String infinitive) {
 		return verbsCollection.removeIf(v -> v.getInfinitive().equals(infinitive));
 	}
@@ -66,14 +81,15 @@ public class VerbsCollection {
 			return false;
 		}
 	}
-	
+
 	public Set<Verb> getVerbsSortedByTranslation() {
 		Set<Verb> verbsSortedByTranslation = new TreeSet<Verb>(new Comparator<Verb>() {
 			private Collator collator = Collator.getInstance(Locale.getDefault());
+
 			@Override
 			public int compare(Verb v1, Verb v2) {
 				return collator.compare(v1.getTranslation(), v2.getTranslation());
-			}			
+			}
 		});
 		verbsSortedByTranslation.addAll(verbsCollection);
 		return verbsSortedByTranslation;
@@ -82,11 +98,11 @@ public class VerbsCollection {
 	public void printVerbsByInfinitive() {
 		verbsCollection.forEach(v -> System.out.println(v.toStringByInfinitive()));
 	}
-	
+
 	public void printVerbsByTranslation() {
 		getVerbsSortedByTranslation().forEach(v -> System.out.println(v.toString()));
 	}
-	
+
 	public Verb[] getArrayOfVerbs() {
 		Verb[] arrayOfVerbs = verbsCollection.toArray(new Verb[verbsCollection.size()]);
 		return arrayOfVerbs;
