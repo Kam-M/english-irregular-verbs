@@ -30,7 +30,11 @@ public class VerbsCollection {
 		this.verbsCollection = verbsCollection;
 	}
 
-	private boolean addVerbToCollection(Verb verb) {
+	public boolean merge(VerbsCollection verbsCollectionToMerge) {
+		return this.verbsCollection.addAll(verbsCollectionToMerge.getVerbsCollection());
+	}
+
+	public boolean addVerbToCollection(Verb verb) {
 		if (verbsCollection.add(verb)) {
 			System.out.println("Succesfully added: " + verb.toString());
 			return true;
@@ -40,7 +44,7 @@ public class VerbsCollection {
 		}
 	}
 
-	public boolean addVerb(Scanner scanner) {
+	public boolean addNewVerb(Scanner scanner) {
 		List<String> formsOfVerb = new ArrayList<>();
 
 		String[] descriptionOfParticularForm = { "translation", "infinitive form", "Past Tense(2nd) form",
@@ -66,7 +70,12 @@ public class VerbsCollection {
 		return input.matches("[\\p{L}/]+") && input.length() > 1;
 	}
 
-	private boolean removeVerbFromCollection(String infinitive) {
+	boolean removeAllVerbsFromCollection() {
+		this.verbsCollection.clear();
+		return 0 == this.verbsCollection.size();
+	}
+
+	public boolean removeVerbFromCollection(String infinitive) {
 		return verbsCollection.removeIf(v -> v.getInfinitive().equals(infinitive));
 	}
 
@@ -93,6 +102,11 @@ public class VerbsCollection {
 		});
 		verbsSortedByTranslation.addAll(verbsCollection);
 		return verbsSortedByTranslation;
+	}
+
+	public Verb getOneRandomVerbToLearn() {
+		Verb[] arrayOfVerbs = getArrayOfVerbs();
+		return getRandomVerb(arrayOfVerbs);
 	}
 
 	public void printVerbsByInfinitive() {
