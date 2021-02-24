@@ -20,7 +20,7 @@ public class Quiz {
 
 		while (true) {
 
-			System.out.println("Wanna play?\n1. Yes.\n2. No, enough for me, go to MAIN MENU.");
+			System.out.println("Choose: 1. Display a verb. \n2. Back to MAIN MENU.");
 
 			String input = scanner.nextLine();
 

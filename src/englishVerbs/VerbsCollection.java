@@ -31,12 +31,14 @@ public class VerbsCollection {
 	}
 
 	public boolean merge(VerbsCollection verbsCollectionToMerge) {
-		return this.verbsCollection.addAll(verbsCollectionToMerge.getVerbsCollection());
+		if (verbsCollection.addAll(verbsCollectionToMerge.getVerbsCollection())) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean addVerbToCollection(Verb verb) {
 		if (verbsCollection.add(verb)) {
-			System.out.println("Succesfully added: " + verb.toString());
 			return true;
 		} else {
 			System.out.println("This verb is already in the collection (checked by infinitive).");
@@ -72,7 +74,8 @@ public class VerbsCollection {
 
 	boolean removeAllVerbsFromCollection() {
 		this.verbsCollection.clear();
-		return 0 == this.verbsCollection.size();
+		System.out.println(this.verbsCollection.size());
+		return verbsCollection.isEmpty();
 	}
 
 	public boolean removeVerbFromCollection(String infinitive) {
