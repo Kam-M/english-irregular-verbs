@@ -15,6 +15,9 @@ public class Quiz {
 
 	public int typeCorrectFormOfVerb(Scanner scanner) {
 
+		VerbsCollection verbsCollectionCopy = new VerbsCollection();
+		verbsCollectionCopy.merge(this.verbsCollection);
+		
 		int score = 0;
 		int attemptCount = 0;
 
@@ -27,8 +30,13 @@ public class Quiz {
 			if (input.equals("2")) {
 				break;
 			}
+			
+			if (verbsCollectionCopy.getVerbsCollection().size() < 1) {
+				System.out.println("Not enough verbs in list to play Quiz. You already viewed all available verbs.");
+				break;
+			}
 
-			Verb randomVerb = verbsCollection.getRandomVerb(verbsCollection.getArrayOfVerbs());
+			Verb randomVerb = verbsCollectionCopy.getRandomVerb(verbsCollectionCopy.getArrayOfVerbs());
 			List<String> verbFormsList = new ArrayList<>(randomVerb.verbFormsIntoList());
 			String translation = verbFormsList.remove(0);
 
@@ -58,6 +66,7 @@ public class Quiz {
 				System.out.println("\n...Incorrect... \n" + "Hint: " + randomVerb + "\n" + "Your score is " + score
 						+ " in " + ++attemptCount + " attempts.");
 			}
+			verbsCollectionCopy.removeVerbFromCollection(randomVerb.getInfinitive());
 		}
 		return score;
 	}

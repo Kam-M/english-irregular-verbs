@@ -12,12 +12,12 @@ public class QuizManager {
 		if ((verbsCollection != null) && (isCollectionFilledUp(verbsCollection))) {
 			score = quiz.typeCorrectFormOfVerb(new Scanner(System.in));
 		}else {
-			System.out.println("It is impossible to launch Quiz with empty list!");
+			System.out.println("It is impossible to launch Quiz with this list (it must contain at least 2 or more verbs).");
 		}
 		return score;
 	}
 
 	private boolean isCollectionFilledUp(VerbsCollection verbsCollection) {
-		return verbsCollection.getVerbsCollection().size() > 0;
+		return verbsCollection.getVerbsCollection().size() > 1;
 	}
 }
