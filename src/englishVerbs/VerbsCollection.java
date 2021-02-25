@@ -56,13 +56,13 @@ public class VerbsCollection {
 		for (int i = 0; i <= verbFormsDescription.length - 1; i++) {
 			System.out.println("Type " + verbFormsDescription[i] + " for a new verb "
 					+ "separating possible diffferent meanings by a forward slash sign \"/\" : ");
-			String inputForNewVerb = scanner.nextLine().toLowerCase();
-			if (!isInputForNewVerbValid(inputForNewVerb)) {
+			String inputWithForm = scanner.nextLine().toLowerCase();
+			if (!isInputForNewVerbValid(inputWithForm)) {
 				System.out.println("Wrong input.");
 				i--;
 				continue;
 			}
-			formsOfVerb.add(inputForNewVerb);
+			formsOfVerb.add(inputWithForm);
 		}
 
 		return addVerbToCollection(
