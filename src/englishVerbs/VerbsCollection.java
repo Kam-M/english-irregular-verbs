@@ -39,6 +39,7 @@ public class VerbsCollection {
 
 	public boolean addVerbToCollection(Verb verb) {
 		if (verbsCollection.add(verb)) {
+			System.out.println("Verb succesfully added.");
 			return true;
 		} else {
 			System.out.println("This verb is already in the collection (checked by infinitive).");
@@ -46,14 +47,14 @@ public class VerbsCollection {
 		}
 	}
 
-	public boolean addNewVerb(Scanner scanner) {
+	public boolean addBrandNewVerb(Scanner scanner) {
 		List<String> formsOfVerb = new ArrayList<>();
 
-		String[] descriptionOfParticularForm = { "translation", "infinitive form", "Past Tense(2nd) form",
+		String[] verbFormsDescription = { "translation", "infinitive form", "Past Tense(2nd) form",
 				"Past Participle(3rd) form" };
 
-		for (int i = 0; i <= descriptionOfParticularForm.length - 1; i++) {
-			System.out.println("Type " + descriptionOfParticularForm[i] + " for a new verb "
+		for (int i = 0; i <= verbFormsDescription.length - 1; i++) {
+			System.out.println("Type " + verbFormsDescription[i] + " for a new verb "
 					+ "separating possible diffferent meanings by a forward slash sign \"/\" : ");
 			String inputForNewVerb = scanner.nextLine().toLowerCase();
 			if (!isInputForNewVerbValid(inputForNewVerb)) {
@@ -72,20 +73,19 @@ public class VerbsCollection {
 		return input.matches("[\\p{L}/]+") && input.length() > 1;
 	}
 
-	boolean removeAllVerbsFromCollection() {
+	boolean removeAllVerbs() {
 		this.verbsCollection.clear();
-		System.out.println(this.verbsCollection.size());
 		return verbsCollection.isEmpty();
 	}
 
-	public boolean removeVerbFromCollection(String infinitive) {
+	boolean removeVerbByGivenInf(String infinitive) {
 		return verbsCollection.removeIf(v -> v.getInfinitive().equals(infinitive));
 	}
 
-	public boolean removeVerb(Scanner scanner) {
+	boolean removeVerb(Scanner scanner) {
 		System.out.println("Type infinitive of the verb you want to remove:");
 		String infinitive = scanner.nextLine();
-		if (removeVerbFromCollection(infinitive)) {
+		if (removeVerbByGivenInf(infinitive)) {
 			System.out.println("Succesfully removed verb from collection.");
 			return true;
 		} else {
@@ -107,27 +107,22 @@ public class VerbsCollection {
 		return verbsSortedByTranslation;
 	}
 
-	public Verb getOneRandomVerbToLearn() {
+	Verb getOneRandomVerb() {
 		Verb[] arrayOfVerbs = getArrayOfVerbs();
-		return getRandomVerb(arrayOfVerbs);
-	}
-
-	public void printVerbsByInfinitive() {
-		verbsCollection.forEach(v -> System.out.println(v.toStringByInfinitive()));
-	}
-
-	public void printVerbsByTranslation() {
-		getVerbsSortedByTranslation().forEach(v -> System.out.println(v.toString()));
+		int rnd = new Random().nextInt(arrayOfVerbs.length);
+		return arrayOfVerbs[rnd];
 	}
 
 	public Verb[] getArrayOfVerbs() {
 		Verb[] arrayOfVerbs = verbsCollection.toArray(new Verb[verbsCollection.size()]);
 		return arrayOfVerbs;
 	}
-
-	public Verb getRandomVerb(Verb[] arrayOfVerbs) {
-		int rnd = new Random().nextInt(arrayOfVerbs.length);
-		return arrayOfVerbs[rnd];
+	
+	public void printVerbsByInfinitive() {
+		verbsCollection.forEach(v -> System.out.println(v.toString()));
 	}
 
+	public void printVerbsByTranslation() {
+		getVerbsSortedByTranslation().forEach(v -> System.out.println(v.toStringByTranslation()));
+	}
 }

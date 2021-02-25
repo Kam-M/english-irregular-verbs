@@ -10,17 +10,28 @@ public class CollectionManager {
 	private boolean needToUpdateSourceFiles;
 
 	public void learn() {
+		
 		loadVerbsFromSource();
 		enterMainMenu();
+		
 		if (needToUpdateSourceFiles) {
 			updateVerbsInSource();
 		}
 	}
+	
+	private void loadVerbsFromSource() {
+		System.out.println("Loading verbs from source files...");
+		dataHandler = new FileHandler(mainCollection, learntCollection);
+
+		mainCollection = new VerbsCollection(dataHandler.readMainCollectionFromSource());
+		learntCollection = new VerbsCollection(dataHandler.readLearntCollectionFromSource());
+	}
 
 	private void enterMainMenu() {
 		Scanner scanner = new Scanner(System.in);
+		boolean running = true;
 
-		while (true) {
+		while (running) {
 			System.out.println("**********************************************************************************\n"
 					+ "\t\t\t\t MAIN MENU\n"
 					+ "Choose number from below and confirm pressing Enter:\n1. View all verbs from the Main List (unlearnt verbs).\n"
@@ -28,46 +39,46 @@ public class CollectionManager {
 					+ "3. Print a random verb to learn from Main List.\n"
 					+ "4. Add a brand new verb to the Main List.\n"
 					+ "5. Remove completely a specific verb from the Main List (operation cannot be undone!).\n"
-					+ "6. Clear entire Learnt List -> move all verbs back to Main List\n" + "7. Enter QUIZ MENU.\n"
+					+ "6. Clear entire Learnt List -> move all it's verbs back to Main List\n" + "7. Enter QUIZ MENU.\n"
 					+ "8. Quit app.");
 
 			String userInput = scanner.nextLine();
-			
-			if (userInput.equals("1")) {
+
+			switch (userInput) {
+			case "1":
 				displayCollection(mainCollection, askForSorting(scanner));
 				continue;
-			} else if (userInput.equals("2")) {
+			case "2":
 				displayCollection(learntCollection, askForSorting(scanner));
 				continue;
-			} else if (userInput.equals("3")) {
+			case "3":
 				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
-				Verb randomVerb = mainCollection.getOneRandomVerbToLearn();
+				Verb randomVerb = mainCollection.getOneRandomVerb();
 				System.out.println(randomVerb + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
 				needToUpdateSourceFiles = askToMarkVerbAsLearnt(scanner, randomVerb);
 				continue;
-			} else if (userInput.equals("4")) {
-				needToUpdateSourceFiles = mainCollection.addNewVerb(scanner);
+			case "4":
+				needToUpdateSourceFiles = mainCollection.addBrandNewVerb(scanner);
 				continue;
-			} else if (userInput.equals("5")) {
+			case "5":
 				needToUpdateSourceFiles = mainCollection.removeVerb(scanner);
 				continue;
-			} else if (userInput.equals("6")) {
-				boolean merged = mainCollection.merge(learntCollection);
-				boolean removed = learntCollection.removeAllVerbsFromCollection();
-				if (merged || removed) {
-					System.out.println("Succesfully moved verbs beetween lists. Learnt List is empty.");
-					needToUpdateSourceFiles = true;
-				} else {
-					System.out.println("Error while merging Lists...");
+			case "6":
+				mainCollection.merge(learntCollection);
+				if (learntCollection.removeAllVerbs()) {
+					System.out.println("Learnt List cleared!");
 				}
+				needToUpdateSourceFiles = true;
 				continue;
-			} else if (userInput.equals("7")) {
-				int score = new QuizManager().startQuiz(askCollectionToPlayQuiz(scanner));
-				System.out.println("Quitting QUIZ. Your total score is " + score + ".");
+			case "7":
+				int score = new QuizManager(mainCollection, learntCollection).launchQuiz();
+				System.out.println("Shutting down QUIZ...\nYour total score was " + score + ".");
 				continue;
-			} else if (userInput.equals("8")) {
+			case "8":
+				scanner.close();
+				running = false;
 				break;
-			} else {
+			default:
 				System.out.println("Invalid command... Type a number and press ENTER");
 			}
 		}
@@ -107,7 +118,7 @@ public class CollectionManager {
 			switch (scanner.nextLine()) {
 			case "1":
 				if (learntCollection.addVerbToCollection(verb)
-						&& mainCollection.removeVerbFromCollection(verb.getInfinitive())) {
+						&& mainCollection.removeVerbByGivenInf(verb.getInfinitive())) {
 					System.out.println("Verb succesfully marked as learnt.\n");
 					return true;
 				}
@@ -120,37 +131,14 @@ public class CollectionManager {
 		}
 	}
 
-	private VerbsCollection askCollectionToPlayQuiz(Scanner scanner) {
-		System.out.println("Select a source for Quiz:\n1. Main List.\n2. Learnt List.");
-		String input = scanner.nextLine();
-		switch (input) {
-		case "1":
-			System.out.println("Preparing MAIN LIST for QUIZ...");
-			return this.mainCollection;
-		case "2":
-			System.out.println("Preparing LEARNT LIST for QUIZ...");
-			return this.learntCollection;
-		default:
-			return null;
-		}
-	}
-
-	private void loadVerbsFromSource() {
-		System.out.println("Loading verbs from source files...");
-		dataHandler = new FileHandler(mainCollection, learntCollection);
-
-		mainCollection = new VerbsCollection(dataHandler.readMainCollectionFromSource());
-		learntCollection = new VerbsCollection(dataHandler.readLearntCollectionFromSource());
-	}
-
 	private void updateVerbsInSource() {
 		System.out.println("Updating source files...");
 		dataHandler = new FileHandler(mainCollection, learntCollection);
 
-		if (mainCollection.getVerbsCollection() != null && mainCollection.getVerbsCollection().size() > 0) {
+		if (mainCollection.getVerbsCollection() != null) {
 			dataHandler.saveMainCollection();
 		}
-		if (learntCollection.getVerbsCollection() != null && learntCollection.getVerbsCollection().size() > 0) {
+		if (learntCollection.getVerbsCollection() != null) {
 			dataHandler.saveLearnCollection();
 		}
 	}

@@ -21,41 +21,18 @@ public class Verb implements Comparable<Verb> {
 		return infinitive;
 	}
 
-	public void setInfinitive(String infinitive) {
-		this.infinitive = infinitive;
-	}
-
 	public String getTranslation() {
 		return translation;
 	}
 
-	public void setTranslation(String translation) {
-		this.translation = translation;
-	}
-
-	public String getPastTense() {
-		return pastTense;
-	}
-
-	public void setPastTense(String pastTense) {
-		this.pastTense = pastTense;
-	}
-
-	public String getPastParticiple() {
-		return pastParticiple;
-	}
-
-	public void setPastParticiple(String pastParticiple) {
-		this.pastParticiple = pastParticiple;
-	}
-
 	@Override
 	public String toString() {
-		return translation + " || " + infinitive + " -- " + pastTense + " -- " + pastParticiple;
+		return infinitive + " -- " + pastTense + " -- " + pastParticiple + " || " + translation;
 	}
 
-	public String toStringByInfinitive() {
-		return infinitive + " -- " + pastTense + " -- " + pastParticiple + " || " + translation;
+	public String toStringByTranslation() {
+		return translation + " || " + infinitive + " -- " + pastTense + " -- " + pastParticiple;
+
 	}
 
 	@Override
@@ -63,7 +40,7 @@ public class Verb implements Comparable<Verb> {
 		return this.infinitive.compareTo(o.getInfinitive());
 	}
 
-	List<String> verbFormsIntoList() {
+	List<String> getVerbFormsIntoList() {
 		List<String> verbToList = new ArrayList<>();
 		verbToList.add(this.translation);
 		verbToList.add(this.infinitive);
@@ -72,9 +49,9 @@ public class Verb implements Comparable<Verb> {
 		return verbToList;
 	}
 
-	String verbToOneSqueezedString() {
+	String getVerbFormsAsOneSqueezedString() {
 		StringBuilder verbAsString = new StringBuilder();
-		verbFormsIntoList().forEach(s -> verbAsString.append(s + ","));
+		getVerbFormsIntoList().forEach(s -> verbAsString.append(s + ","));
 		return verbAsString.toString();
 	}
 

@@ -37,7 +37,10 @@ class FileHandler implements IDataHandler {
 							arrayWithVerb[3]))
 					.collect(Collectors.toCollection(TreeSet::new));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(
+					"\nCannot load verbs from source file -> check file \"irregular-verbs.txt\" in the app directory."
+							+ "\n\nShutting down...");
+			System.exit(-1);
 		}
 
 		return verbsCollection;
@@ -52,7 +55,10 @@ class FileHandler implements IDataHandler {
 							arrayWithVerb[3]))
 					.collect(Collectors.toCollection(TreeSet::new));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(
+					"\nCannot load verbs from source file -> check file \"learnt-verbs.txt\" in the app directory."
+							+ "\n\nShutting down...");
+			System.exit(-1);
 		}
 		return verbsCollection;
 	}
@@ -62,10 +68,13 @@ class FileHandler implements IDataHandler {
 		try (Writer output = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(filePathMainCollection), Charset.forName("UTF8")))) {
 			for (var verb : this.mainCollection.getVerbsSortedByTranslation()) {
-				output.write(verb.verbToOneSqueezedString() + System.lineSeparator());
+				output.write(verb.getVerbFormsAsOneSqueezedString() + System.lineSeparator());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(
+					"\nSomething gone wrong while updating file -> check file \"irregular-verbs.txt\" in the app directory."
+							+ "\n\nShutting down...");
+			System.exit(-1);
 		}
 	}
 
@@ -74,10 +83,13 @@ class FileHandler implements IDataHandler {
 		try (Writer output = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(filePathLearntVerbs), Charset.forName("UTF8")))) {
 			for (var verb : learntCollection.getVerbsSortedByTranslation()) {
-				output.write(verb.verbToOneSqueezedString() + System.lineSeparator());
+				output.write(verb.getVerbFormsAsOneSqueezedString() + System.lineSeparator());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(
+					"\nSomething gone wrong while updating file -> check file \"learnt-verbs.txt\" in the app directory."
+							+ "\n\nShutting down...");
+			System.exit(-1);
 		}
 	}
 }
