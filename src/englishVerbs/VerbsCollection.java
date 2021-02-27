@@ -70,7 +70,7 @@ public class VerbsCollection {
 	}
 
 	private boolean isInputForNewVerbValid(String input) {
-		return input.matches("[\\p{L}/]+") && input.length() > 1;
+		return input.matches("[\\p{L}/ ]+") && input.length() > 1;
 	}
 
 	boolean removeAllVerbs() {
