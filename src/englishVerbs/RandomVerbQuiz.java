@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class RandomVerbQuiz implements IQuizable {
 
@@ -17,7 +19,10 @@ public class RandomVerbQuiz implements IQuizable {
 	}
 
 	public int startQuiz() {
-		VerbsCollection verbsCopy = new VerbsCollection(this.verbsCollection.getVerbsCollection());
+		Set<Verb> verbsCopySet = new TreeSet<>(); // THINK ABOUT IT! 
+		verbsCopySet.addAll(this.verbsCollection.getVerbsCollection());
+		VerbsCollection verbsCopy = new VerbsCollection(verbsCopySet);
+		
 		scanner = new Scanner(System.in);
 
 		while (true) {
