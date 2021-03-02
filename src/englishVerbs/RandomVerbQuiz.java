@@ -19,7 +19,7 @@ public class RandomVerbQuiz implements IQuizable {
 	}
 
 	public int startQuiz() {
-		Set<Verb> verbsCopySet = new TreeSet<>(); // THINK ABOUT IT! 
+		Set<Verb> verbsCopySet = new TreeSet<>(); 
 		verbsCopySet.addAll(this.verbsCollection.getVerbsCollection());
 		VerbsCollection verbsCopy = new VerbsCollection(verbsCopySet);
 		

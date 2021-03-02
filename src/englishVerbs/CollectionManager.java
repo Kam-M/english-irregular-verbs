@@ -72,7 +72,7 @@ public class CollectionManager {
 				continue;
 			case "7":
 				int score = new QuizManager(mainCollection, learntCollection).launchQuiz();
-				System.out.println("Shutting down QUIZ...\nYour total score was " + score + ".");
+				System.out.println("Shutting down QUIZ...\nTOTAL SCORE: " + score + ".");
 				continue;
 			case "8":
 				scanner.close();
