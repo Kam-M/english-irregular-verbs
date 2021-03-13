@@ -18,11 +18,12 @@ import java.util.stream.Stream;
 class FileHandler implements Dao {
 
 	// FILE PATHS WHEN JAR FILE 
-//	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs" + File.separator +  "irregular-verbs.txt";
-//	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs" + File.separator +  "learnt-verbs.txt";
+	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs"  + File.separator +  "irregular-verbs.txt";
+	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs" + File.separator +  "learnt-verbs.txt";
 
-	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator  +  "irregular-verbs.txt";
-	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator +  "learnt-verbs.txt";
+	// file paths for testing purposes
+//	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator  +  "irregular-verbs.txt";
+//	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator +  "learnt-verbs.txt";
 
 	private VerbsCollection mainCollection;
 	private VerbsCollection learntCollection;
