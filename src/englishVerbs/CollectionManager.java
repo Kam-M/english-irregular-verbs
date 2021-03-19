@@ -6,7 +6,7 @@ public class CollectionManager {
 
 	private VerbsCollection mainCollection;
 	private VerbsCollection learntCollection;
-	private Dao dataHandler;
+	private DaoI dataHandler;
 	private boolean needToUpdateSourceFiles;
 
 	public void learn() {

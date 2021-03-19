@@ -2,7 +2,7 @@ package englishVerbs;
 
 import java.util.Set;
 
-interface Dao{
+interface DaoI{
 
 	Set<Verb> readMainCollectionFromSource();
 	Set<Verb> readLearntCollectionFromSource();

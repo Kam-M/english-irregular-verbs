@@ -15,13 +15,13 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class FileHandler implements Dao {
+class FileHandler implements DaoI {
 
-	// FILE PATHS WHEN JAR FILE 
+	// paths when exporting .jar 
 //	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs"  + File.separator +  "irregular-verbs.txt";
 //	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator + "English-Irregular-Verbs" + File.separator +  "learnt-verbs.txt";
 
-	// file paths for testing purposes
+	// file paths for testing
 	private String filePathMainCollection = new File("").getAbsolutePath() + File.separator  +  "irregular-verbs.txt";
 	private String filePathLearntVerbs = new File("").getAbsolutePath() + File.separator +  "learnt-verbs.txt";
 
