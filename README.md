@@ -14,4 +14,4 @@ Features included at this moment:
 
 This is the first version of this app. I am constantly changing the source code and updating list of available verbs. I try to combine learning programming and learning english :) 
 
-Please check new version of the source code, available in separate repository. 
+Please check new version of the source code where I have added test suites and switched to using database instead files (available in separate repository). 
