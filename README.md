@@ -10,8 +10,8 @@ Features included at this moment:
 - clear entire Main List(be careful, cannot be undone),
 - play a simple quiz where you will be prompted for typing the correct form of a randomly generated verb from choosen list,
 - count quiz score,
-- verbs are stored in external files and update every time user decide to add/delete/move verb between lists.
+- verbs are stored in external files and updated before quitting app if user decided to add/delete/move verb between lists.
 
-This isn't the final version of the app. I am constantly changing the source code and updating list of available verbs. I try to combine learning programming and learning english :)
+This is the first version of this app. I am constantly changing the source code and updating list of available verbs. I try to combine learning programming and learning english :) 
 
-Written in Java 11.
+Please check new version of the source code, available in separate repository. 
